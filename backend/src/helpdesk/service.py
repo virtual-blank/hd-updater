@@ -2,17 +2,67 @@ from httpx import AsyncClient, HTTPError
 from core.config import get_hd_settings
 from datetime import datetime, timezone, timedelta
 import asyncio
-import json
 import msgspec
+from src.helpdesk.schemas import SdpResponse
 from typing import Any
+import json
 
 
-HD_API_KEY = get_hd_settings().api_key
 
-API_KEY = HD_API_KEY
-BASE_URL = "https://ihelpdesk.me"
+API_KEY = "6CCD91E0-1792-456A-B77E-808824317D08"
+ENDPOINT = get_hd_settings().endpoint
 
-endpoint = f"{BASE_URL}/sdpapi/request"
+
+
+# class HelpDeskService:
+#     def __init__(self):
+#         self.client: None | AsyncClient = None
+#         if not self.client:
+#             self.client = AsyncClient(verify=False, http2=True)
+        
+    
+#     # получить все мои заявки
+#     async def get_my_requests(
+#         self,
+#         api_key: str,
+#     ):
+
+#         input_data_dict = {
+#             "operation": {
+#                 "details": {
+#                     "from": 0,
+#                     "limit": 10,
+#                     "filterby": "All_Requests" 
+#                 }
+#                 }
+#             }
+
+# params = {
+#     "OPERATION_NAME": "GET_REQUESTS",
+#     "TECHNICIAN_KEY": API_KEY,
+#     "format": "json",
+#     "INPUT_DATA": json.dumps(input_data_dict)
+# }
+#         try:
+#             response = await client.get(url=ENDPOINT, headers=headers, params=params) 
+#             response.raise_for_status()
+#             print(f"HTTP Status: {response.status_code}")
+#             if response.status_code != 200:
+#                 print(f"Ошибка соединения: {response.status_code}")
+#                 return 
+#             parsed_response = msgspec.json.decode(response.content, type=SdpResponse)
+#             raw_details = parsed_response.operation.details 
+#             if not raw_details:
+#                 return None
+#             else:
+#                 requests_list = raw_details if isinstance(raw_details, list) else [raw_details]
+#             for request in requests_list:
+#                 if request.status.lower() != "в работе":
+#                     continue
+#                 print(f"Заявка: {request.id} | Описание: {request.subject} | Статус: {request.status}")
+
+
+
 
 input_data_dict = {
     "operation": {
@@ -37,24 +87,12 @@ headers = {}
 def get_client() -> AsyncClient:
     return AsyncClient(verify=False, http2=True)
 
-
-
-
-class Request(msgspec.Struct):
-    id: int = msgspec.field(name="WORKORDERID")
-    subject: str = msgspec.field(name="SUBJECT", default="Без темы")
-    status: str = msgspec.field(name="STATUS", default="-")
-
-class OperationDetails(msgspec.Struct):
-    details: list[Request] | Request | None = None
-
-class SdpResponse(msgspec.Struct):
-    operation: OperationDetails
+        
 
 
 async def get_my_operations(client: AsyncClient):
     try:
-        response = await client.get(url=endpoint, headers=headers, params=params) 
+        response = await client.get(url=ENDPOINT, headers=headers, params=params) 
         response.raise_for_status()
         print(f"HTTP Status: {response.status_code}")
         if response.status_code != 200:
@@ -185,18 +223,9 @@ async def get_me(client: AsyncClient):
     return None
 
 async def main():
-    #now = datetime.now()
-    #current_time = now.strftime("%H:%M:%S")
-    #print("Текущее время:", current_time)
-    #print(f"{current_time=}")
     client = get_client()
     res = await get_my_operations(client=client)
     print(res)
-    #res_2 = await get_unassigned_requests(client=client)
-    #print(res_2)
-    #me = await get_me(client=client)
-    #print(f"{me=}")
-    return
     
 
 

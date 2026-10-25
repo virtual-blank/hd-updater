@@ -3,9 +3,13 @@ name = "hd-updater"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.14"
 dependencies = [
+    "asyncpg>=0.32.0",
     "httpx[http2]>=0.28.1",
     "msgspec>=0.22.0",
     "pydantic-settings>=2.16.1",
+    "redis>=8.1.0",
+    "sqlalchemy[asyncio]>=2.1.6",
+    "uuid6>=2025.0.1",
 ]

@@ -3,14 +3,77 @@ from core.config import get_hd_settings
 from datetime import datetime, timezone, timedelta
 import asyncio
 import msgspec
-from src.helpdesk.schemas import SdpResponse
+from src.helpdesk.schemas import SdpResponseSchema, RequestSchema
 from typing import Any
 import json
+from src.helpdesk.cached_repository import CachedHelpdeskRepository
+from src.helpdesk.client import HelpDeskClient
 
 
 
 API_KEY = "6CCD91E0-1792-456A-B77E-808824317D08"
 ENDPOINT = get_hd_settings().endpoint
+
+
+
+class HelpDeskService:
+    def __init__(self):
+        self.hd_client = HelpDeskClient()
+        self.cached_repo = CachedHelpdeskRepository()
+
+    async def fill_cache(self):
+        return await self.cached_repo.warmup_cache_all_requests()
+    
+    async def check_new_requests(self) -> list[tuple[str, RequestSchema]]:
+            current_requests = await self.hd_client.get_requests(
+                #filter_by="All_Requests", 
+                #limit=100
+            )
+            
+            known_requests = await self.cached_repo.get_known_requests()
+            
+            events = []
+
+            for req in current_requests:
+                if req.id not in known_requests:
+                    if not req.technician:
+                        events.append(("NEW_UNASSIGNED", req))
+                    else:
+                        events.append(("ASSIGNED", req))
+                else:
+                    old_tech = known_requests[req.id]
+                    if req.technician and req.technician != old_tech:
+                        events.append(("ASSIGNED", req))
+                        
+            if current_requests:
+                await self.cached_repo.update_known_requests(current_requests)
+                
+            return events
+
+
+    async def process_requests(self):
+        events = await self.check_new_requests()
+        if events:
+            print(f"Новое событие: {len(events)}")
+            for event_type, req in events:
+                full_request = await self.hd_client.get_request(request_id=req.id)
+                if not full_request:
+                    raise ValueError("Не удалось получить информацию о заявке")
+                print(f"[{event_type}] Заявка #{req.id} -> Исполнитель: {req.technician}")
+                print(f"""
+                ID: #{full_request.id}
+                Автор: {full_request.requester}
+                Тема: {full_request.subject}
+                Статус: {full_request.status}
+                Описание: {full_request.description}
+                Специалист:{full_request.technician}
+
+
+
+
+""")
+        else:
+            print("Изменений нет.")
 
 
 

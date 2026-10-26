@@ -1,15 +1,22 @@
 import asyncio
+import time
 
-from src.helpdesk.client import get_hd_client
+from src.helpdesk.service import HelpDeskService
 
 
-hd_client = get_hd_client()
+hd_service = HelpDeskService()
 
 async def main():
-    res = await hd_client.get_requests(api_key="6CCD91E0-1792-456A-B77E-808824317D08")
-    print(res)
-    return 
+    await hd_service.fill_cache()
     
+    while True:
+        print("Ждем 10 сек...")
+        await asyncio.sleep(10)
+        events = await hd_service.process_requests()
+        
+
+if __name__ == "__main__":
+    asyncio.run(main())
 
 if __name__ == "__main__":
     asyncio.run(main())

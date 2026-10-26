@@ -1,0 +1,71 @@
+services:
+  postgres:
+    image: postgres:16.2-alpine
+    container_name: core_db
+    restart: unless-stopped
+    env_file:
+      - .env 
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./backend/core/infra/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - app_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: core_redis
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app_network
+
+  backend:
+    profiles: ["full"]
+    build:
+      context: ./backend      
+      dockerfile: Dockerfile
+    container_name: fastapi_backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:            
+      - DB_HOST=postgres
+      - REDIS_HOST=redis 
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy 
+      redis:
+        condition: service_started
+    networks:
+      - app_network
+    volumes:
+      - ./backend:/app/backend    
+      - /app/backend/.venv
+
+volumes:
+  pg_data:
+  minio_data: 
+  redis_data: 
+
+networks:
+  app_network:
+    driver: bridge

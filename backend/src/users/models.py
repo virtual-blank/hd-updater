@@ -13,7 +13,7 @@ class User(Uuid7PkMixin, TimeStampMixin, Base):
 
     telegram_id: Mapped[int] = mapped_column(BigInteger, unique=True, index=True)
     hd_api: Mapped[str | None]
-    hd_technician_name: Mapped[str | None]
+    hd_technician_name: Mapped[str]
 
     settings_presets: Mapped[list["SettingsPreset"]] = relationship(
         "SettingsPreset", back_populates="user", cascade="all, delete-orphan", passive_deletes=True, lazy="raise_on_sql"

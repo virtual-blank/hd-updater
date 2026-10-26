@@ -9,11 +9,10 @@ class UserService:
         self.cached_repo = CachedUserRepository()
 
     async def warmup_cache_all_users(self):
-        """Прогревает Redis актуальными настройками всех юзеров из Postgres."""
-        db_users = await self.repo.get_active_users_with_settings()
+        users_dao = await self.repo.get_active_users_with_settings()
         profiles_to_cache = []
         
-        for user in db_users:
+        for user in users_dao:
             active_preset = next((p for p in user.settings_presets if p.is_active), None)
             
             if not active_preset:
@@ -23,7 +22,6 @@ class UserService:
                 telegram_id=user.telegram_id,
                 hd_api=user.hd_api,
                 hd_technician_name=user.hd_technician_name,
-                # Превращаем объект datetime.time в строку "HH:MM:SS" (если есть)
                 time_from=active_preset.time_from.strftime("%H:%M:%S") if active_preset.time_from else None,
                 time_to=active_preset.time_to.strftime("%H:%M:%S") if active_preset.time_to else None,
                 days_of_week=active_preset.days_of_week,

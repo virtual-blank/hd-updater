@@ -12,7 +12,7 @@ class User(Uuid7PkMixin, TimeStampMixin, Base):
     __tablename__ = "users"
 
     telegram_id: Mapped[int] = mapped_column(BigInteger, unique=True, index=True)
-    hd_api: Mapped[str | None]
+    hd_api: Mapped[str]
     hd_technician_name: Mapped[str]
 
     settings_presets: Mapped[list["SettingsPreset"]] = relationship(

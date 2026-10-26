@@ -2,7 +2,10 @@ from core.redis.client import get_redis_client
 from src.helpdesk.client import HelpDeskClient
 from src.helpdesk.schemas import RequestSchema
 import msgspec
+import logging
 
+
+log = logging.getLogger(__name__)
 
 
 class CachedHelpdeskRepository:
@@ -22,7 +25,14 @@ class CachedHelpdeskRepository:
         if state:
             payload = msgspec.json.encode(state)
             await self.redis.set("hd:state:known_requests", payload, ex=86400 * 7)
-            print(f"Кэш прогрет. Заявок в памяти: {len(state)}")
+            redis_size_bytes = await self.redis.memory_usage(self.cache_key) or 0
+            redis_size_mb = redis_size_bytes / (1024*1024)
+            log.info(
+                f"Кэш прогрет. Заявок в памяти: {len(state)}"
+                f"Объем памяти в Redis: {redis_size_bytes}B | {redis_size_mb}MB"
+                )
+
+
 
 
     async def get_known_requests(self) -> dict[int, str]:

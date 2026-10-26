@@ -36,9 +36,28 @@ class RedisSettings(BaseSettings):
         return f"redis://{self.host}:{self.port}/0"
 
 
-class DBSettings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=ENV_FILE, env_prefix="DB_", extra="ignore")
-    url: str  # например: postgresql+asyncpg://user:pass@localhost:5432/hd_bot
+class PostgresSettings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=ENV_FILE, env_prefix="POSTGRES_", extra="ignore")
+    user: str
+    password: str
+    host: str
+    port: int
+    name: str
+
+    @property
+    def url(self) -> str:
+        return f"postgresql+asyncpg://{self.user}:{self.password}@{self.host}:{self.port}/{self.name}"
+
+
+class LoggingSettings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=ENV_FILE, env_prefix="LOG_", extra="ignore")
+    level: str = "INFO"
+    format: str = "%(asctime)s [%(levelname)s] %(name)s - %(message)s"
+
+
+@lru_cache
+def get_logging_settings() -> LoggingSettings:
+    return LoggingSettings()
 
 
 @lru_cache

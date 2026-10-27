@@ -28,8 +28,8 @@ class CachedHelpdeskRepository:
             redis_size_bytes = await self.redis.memory_usage(self.cache_key) or 0
             redis_size_mb = redis_size_bytes / (1024*1024)
             log.info(
-                f"Кэш прогрет. Заявок в памяти: {len(state)}"
-                f"Объем памяти в Redis: {redis_size_bytes}B | {redis_size_mb}MB"
+                f"Cache warmed up. Requests in RAM: {len(state)}\n"
+                f"Total Redis capacity: {redis_size_bytes}B | {redis_size_mb}MB"
                 )
 
 
@@ -42,14 +42,10 @@ class CachedHelpdeskRepository:
             return self.decoder.decode(raw_data)
 
     async def update_known_requests(self, current_requests: list[RequestSchema]):
-            """Добавляет свежие заявки в кэш, не удаляя старые (накапливает историю)."""
-            # Сначала получаем то, что уже есть
             known = await self.get_known_requests()
             
-            # Обновляем словарь свежими данными
             for req in current_requests:
                 known[req.id] = req.technician
                 
-            # Перезаписываем кэш с TTL 7 дней
             payload = self.encoder.encode(known)
-            await self.redis.set(self.cache_key, payload, ex=86400 * 7)
+            await self.redis.set(self.cache_key, payload, ex=86400 * 7) 

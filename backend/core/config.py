@@ -1,4 +1,3 @@
-# backend/core/config.py
 from functools import lru_cache
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -16,7 +15,7 @@ class HDSettings(BaseSettings):
     @property
     def endpoint(self) -> str:
         if not self.base_url.startswith("https://"):
-            raise ValueError("Неверный helpdesk URL")
+            raise ValueError("Incorrect helpdesk URL")
         return f"{self.base_url.rstrip('/')}/sdpapi/request"
 
 
@@ -76,5 +75,5 @@ def get_redis_settings() -> RedisSettings:
 
 
 @lru_cache
-def get_db_settings() -> DBSettings:
-    return DBSettings()
+def get_postgres_settings() -> PostgresSettings:
+    return PostgresSettings()

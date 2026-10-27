@@ -12,7 +12,7 @@ class User(Uuid7PkMixin, TimeStampMixin, Base):
     __tablename__ = "users"
 
     telegram_id: Mapped[int] = mapped_column(BigInteger, unique=True, index=True)
-    hd_api: Mapped[str]
+    hd_api: Mapped[str] = mapped_column(unique=True, index=True)
     hd_technician_name: Mapped[str]
 
     settings_presets: Mapped[list["SettingsPreset"]] = relationship(
@@ -28,7 +28,7 @@ class SettingsPreset(Uuid7PkMixin, TimeStampMixin, Base):
     is_active: Mapped[bool] = mapped_column(default=False)
     time_from: Mapped[time | None] = mapped_column(nullable=True, default=None)
     time_to: Mapped[time | None] = mapped_column(nullable=True, default=None)
-    # дни недели: 0-понедельник, 1-вторник, 2-среда и тд.
+    # week days: 0-mon, 1-tue, 2-wed etc.
     days_of_week: Mapped[list[int]] = mapped_column(ARRAY(Integer), default=lambda: [0, 1, 2, 3, 4, 5, 6])
     unassigned_requests: Mapped[bool] = mapped_column(default=True)
     assigned_to_me: Mapped[bool] = mapped_column(default=True)

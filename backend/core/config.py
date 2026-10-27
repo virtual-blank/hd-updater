@@ -1,9 +1,13 @@
 from functools import lru_cache
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import logging
+
+log = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ENV_FILE = BASE_DIR / ".env"
+
 
 
 class HDSettings(BaseSettings):
@@ -15,6 +19,7 @@ class HDSettings(BaseSettings):
     @property
     def endpoint(self) -> str:
         if not self.base_url.startswith("https://"):
+            log.error("Incorrect helpdesk URL")
             raise ValueError("Incorrect helpdesk URL")
         return f"{self.base_url.rstrip('/')}/sdpapi/request"
 

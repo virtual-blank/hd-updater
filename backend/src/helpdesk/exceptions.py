@@ -1,3 +1,3 @@
 class HelpDeskAPIError(Exception):
-    "Неверный API-ключ helpdesk"
+    "Invalie helpdesk API-key"
 

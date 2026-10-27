@@ -15,12 +15,12 @@ class UserService:
     def __init__(self, session: AsyncSession):
         self.repo = UserRepository(session=session)
         self.cached_repo = CachedUserRepository()
-        self.hd_client = get_hd_client() 
+        self.hd_client = get_hd_client()
 
     async def warmup_cache_all_users(self) -> None:
         users_dao = await self.repo.get_active_users_with_settings()
         profiles_to_cache = []
-        
+
         for user in users_dao:
             active_preset = next((p for p in user.settings_presets if p.is_active), None)
             if not active_preset:
@@ -35,7 +35,7 @@ class UserService:
                 days_of_week=active_preset.days_of_week,
                 unassigned_requests=active_preset.unassigned_requests,
                 assigned_to_me=active_preset.assigned_to_me,
-                alerts=active_preset.alerts
+                alerts=active_preset.alerts,
             )
             profiles_to_cache.append(profile)
 
@@ -48,20 +48,14 @@ class UserService:
             raise TechnicianNameNotFound("Could not find technician with provided heldpesk API-key")
 
         new_user = await self.repo.create_user(
-            hd_api=user_data.hd_api,
-            telegram_id=user_data.telegram_id,
-            hd_technician_name=hd_technician_name
+            hd_api=user_data.hd_api, telegram_id=user_data.telegram_id, hd_technician_name=hd_technician_name
         )
         await self.repo._commit()
-        
+
         await self.warmup_cache_all_users()
         return new_user
 
-    async def edit_user_settings(
-        self, 
-        telegram_id: int, 
-        settings_data: SettingsPresetUpdateSchema
-    ) -> None:
+    async def edit_user_settings(self, telegram_id: int, settings_data: SettingsPresetUpdateSchema) -> None:
         user = await self.repo.get_user_by_telegram_id(telegram_id)
         if not user:
             raise ValueError(f"User with telegram-id {telegram_id} not found")

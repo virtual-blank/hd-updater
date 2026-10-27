@@ -32,7 +32,7 @@ class UserOutputSchema(msgspec.Struct):
     telegram_id: int
     hd_api: str
     hd_technician_name: str
-    settings: list[UserSettingsOutputSchema] = msgspec.field(default_factory=list) # <-- Исправлено
+    settings: list[UserSettingsOutputSchema] = msgspec.field(default_factory=list)
 
 
 class UserProfileCache(msgspec.Struct):

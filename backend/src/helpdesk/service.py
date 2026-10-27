@@ -26,9 +26,7 @@ class HelpDeskService:
     async def check_new_requests(self) -> list[tuple[str, RequestSchema]]:
         current_requests = await self.hd_client.get_requests()
         known_requests = await self.cached_repo.get_known_requests()
-
         events: list[tuple[str, RequestSchema]] = []
-
         for req in current_requests:
             if req.id not in known_requests:
                 if not req.technician:
@@ -39,23 +37,18 @@ class HelpDeskService:
                 old_tech = known_requests[req.id]
                 if req.technician and req.technician != old_tech:
                     events.append(("ASSIGNED", req))
-
         if current_requests:
             await self.cached_repo.update_known_requests(current_requests)
-
         return events
 
     def _is_within_schedule(self, user: UserProfileCache, now: datetime) -> bool:
         if now.weekday() not in user.days_of_week:
             return False
-
         if not user.time_from or not user.time_to:
             return True
-
         t_from = time.fromisoformat(user.time_from)
         t_to = time.fromisoformat(user.time_to)
         current_time = now.time()
-
         if t_from <= t_to:
             return t_from <= current_time <= t_to
         else:
@@ -89,24 +82,19 @@ class HelpDeskService:
         if not events:
             log.debug("No changes found")
             return []
-
         log.info(f"Found {len(events)} new events in helpdesk")
-
         active_users = await self.cached_user_repo.get_users()
         if not active_users:
             log.warning("Got events but cache is empty")
             return []
-
         now = datetime.now()
         notifications: list[NotificationEventSchema] = []
-
         for event_type, short_req in events:
             try:
                 full_request = await self.hd_client.get_request(request_id=short_req.id)
             except Exception as exc:
                 log.error(f"Could not get details for request #{short_req.id}: {exc}")
                 continue
-
             for user in active_users:
                 if self._should_notify(user, event_type, full_request, now):
                     notifications.append(

@@ -29,7 +29,7 @@ class CachedHelpdeskRepository:
             redis_size_mb = redis_size_bytes / (1024*1024)
             log.info(
                 f"Cache warmed up. Requests in RAM: {len(state)}\n"
-                f"Total Redis capacity: {redis_size_bytes}B | {redis_size_mb}MB"
+                f"Total Redis capacity: {str(redis_size_bytes)[0:5]}B | {redis_size_mb:.2f}MB"
                 )
 
 

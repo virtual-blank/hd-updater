@@ -50,7 +50,7 @@ class PostgresSettings(BaseSettings):
 
 class LoggingSettings(BaseSettings):
     model_config = SettingsConfigDict(env_file=ENV_FILE, env_prefix="LOG_", extra="ignore")
-    level: str = "INFO"
+    level: str = "DEBUG"
     format: str = "%(asctime)s [%(levelname)s] %(name)s - %(message)s"
 
 

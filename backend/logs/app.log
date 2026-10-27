@@ -1,0 +1,14 @@
+2026-10-27 16:18:44,117 [DEBUG] redis.asyncio.connection - Failed to enable maintenance notifications: unknown subcommand 'MAINT_NOTIFICATIONS'. Try CLIENT HELP.
+2026-10-27 16:18:56,675 [INFO] src.helpdesk.cached_repository - Cache warmed up. Requests in RAM: 4462
+Total Redis capacity: 19668B | 0.19MB
+2026-10-27 16:19:06,910 [DEBUG] src.helpdesk.service - No changes found
+2026-10-27 16:19:18,170 [DEBUG] src.helpdesk.service - No changes found
+2026-10-27 16:19:28,285 [DEBUG] src.helpdesk.service - No changes found
+2026-10-27 16:19:38,389 [DEBUG] src.helpdesk.service - No changes found
+2026-10-27 16:19:48,512 [INFO] src.helpdesk.service - Found 1 new events in helpdesk
+2026-10-27 16:19:58,711 [DEBUG] src.helpdesk.service - No changes found
+2026-10-27 16:20:08,842 [INFO] src.helpdesk.service - Found 1 new events in helpdesk
+2026-10-27 16:20:08,864 [INFO] src.helpdesk.service - Created notification [ASSIGNED] with request #34706 for Даниил Федотов (TG: 123456789)
+2026-10-27 16:20:19,229 [DEBUG] src.helpdesk.service - No changes found
+2026-10-27 16:20:29,351 [DEBUG] src.helpdesk.service - No changes found
+2026-10-27 16:20:39,502 [DEBUG] src.helpdesk.service - No changes found

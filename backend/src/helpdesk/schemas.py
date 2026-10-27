@@ -33,3 +33,9 @@ class RequestFullSchema(msgspec.Struct):
     requester: str = msgspec.field(name="REQUESTER", default="-")
 
 
+class NotificationEventSchema(msgspec.Struct):
+    telegram_id: int
+    event_type: str  # "NEW_UNASSIGNED" or "ASSIGNED"
+    request: RequestFullSchema
+
+

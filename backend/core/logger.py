@@ -1,6 +1,5 @@
 from pathlib import Path
 import logging
-import re
 import logging.config
 from typing import Any
 
@@ -37,6 +36,15 @@ def logging_config(settings: LoggingSettings | None = None) -> dict[str, Any]:
                 "backupCount": 3,
                 "formatter": "default",
             }
+        },
+        "loggers": {
+            "httpx": {"level": "WARNING"},
+            "httpcore": {"level": "WARNING"},
+            "hpack": {"level": "WARNING"},
+            "asyncio": {"level": "WARNING"},
+            "sqlalchemy.engine": {"level": "WARNING"},
+            "aiogram": {"level": "INFO"}, 
+            "apscheduler": {"level": "WARNING"},
         },
         "root": {
             "level": settings.level, 

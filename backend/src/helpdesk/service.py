@@ -77,24 +77,83 @@ class HelpDeskService:
 
         return False
 
+    # async def process_requests(self) -> list[NotificationEventSchema]:
+    #     events = await self.check_new_requests()
+    #     if not events:
+    #         log.debug("No changes found")
+    #         return []
+    #     log.info(f"Found {len(events)} new events in helpdesk")
+    #     active_users = await self.cached_user_repo.get_users()
+    #     if not active_users:
+    #         log.warning("Got events but cache is empty")
+    #         return []
+    #     now = datetime.now()
+    #     notifications: list[NotificationEventSchema] = []
+    #     for event_type, short_req in events:
+    #         try:
+    #             full_request = await self.hd_client.get_request(request_id=short_req.id)
+    #         except Exception as exc:
+    #             log.error(f"Could not get details for request #{short_req.id}: {exc}")
+    #             continue
+    #         for user in active_users:
+    #             if self._should_notify(user, event_type, full_request, now):
+    #                 notifications.append(
+    #                     NotificationEventSchema(
+    #                         telegram_id=user.telegram_id,
+    #                         event_type=event_type,
+    #                         request=full_request,
+    #                     )
+    #                 )
+    #                 log.info(
+    #                     f"Created notification [{event_type}] with request #{full_request.id} "
+    #                     f"for {user.hd_technician_name} (TG: {user.telegram_id})"
+    #                 )
+
+    #     return notifications
+
+
     async def process_requests(self) -> list[NotificationEventSchema]:
         events = await self.check_new_requests()
         if not events:
             log.debug("No changes found")
             return []
+
         log.info(f"Found {len(events)} new events in helpdesk")
+
         active_users = await self.cached_user_repo.get_users()
         if not active_users:
-            log.warning("Got events but cache is empty")
+            log.warning("Events found, but users cache in Redis is empty!")
             return []
+
         now = datetime.now()
         notifications: list[NotificationEventSchema] = []
+
         for event_type, short_req in events:
             try:
                 full_request = await self.hd_client.get_request(request_id=short_req.id)
             except Exception as exc:
-                log.error(f"Could not get details for request #{short_req.id}: {exc}")
+                log.error(f"Failed to fetch details for request #{short_req.id}: {exc}")
                 continue
+
+            # Если заявку назначили — проверяем по истории, не сам ли на себя повесил специалист
+            if event_type == "ASSIGNED" and full_request.technician:
+                try:
+                    editor_name = await self.hd_client.get_last_assignee_editor(short_req.id)
+                except Exception as exc:
+                    log.warning(f"Failed to fetch history for request #{short_req.id}: {exc}")
+                    editor_name = None
+
+                if (
+                    editor_name
+                    and editor_name.strip().lower() == full_request.technician.strip().lower()
+                ):
+                    log.info(
+                        f"Request #{short_req.id}: self-assigned by {editor_name}. "
+                        f"Notification skipped."
+                    )
+                    continue
+
+            # Проверяем, кому из активных пользователей подходит это уведомление
             for user in active_users:
                 if self._should_notify(user, event_type, full_request, now):
                     notifications.append(

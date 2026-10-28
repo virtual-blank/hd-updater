@@ -12,3 +12,71 @@ Total Redis capacity: 19668B | 0.19MB
 2026-10-27 16:20:19,229 [DEBUG] src.helpdesk.service - No changes found
 2026-10-27 16:20:29,351 [DEBUG] src.helpdesk.service - No changes found
 2026-10-27 16:20:39,502 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:23:54,005 [DEBUG] redis.asyncio.connection - Failed to enable maintenance notifications: unknown subcommand 'MAINT_NOTIFICATIONS'. Try CLIENT HELP.
+2026-10-28 17:24:12,140 [INFO] src.helpdesk.cached_repository - Cache warmed up. Requests in RAM: 4461
+Total Redis capacity: 19668B | 0.19MB
+2026-10-28 17:24:22,412 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:24:32,608 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:24:42,880 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:24:53,109 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:25:03,318 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:25:13,532 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:25:23,737 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:25:33,925 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:25:44,112 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:25:54,337 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:26:04,553 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:26:14,772 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:26:24,983 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:26:35,192 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:26:45,407 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:26:55,626 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:27:05,838 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:27:16,060 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:27:26,271 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:27:36,479 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:27:46,762 [INFO] src.helpdesk.service - Found 1 new events in helpdesk
+2026-10-28 17:27:46,797 [INFO] src.helpdesk.service - Created notification [NEW_UNASSIGNED] with request #34756 for Даниил Федотов (TG: 123456789)
+2026-10-28 17:27:57,057 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:28:07,250 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:28:17,460 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:28:27,701 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:28:37,956 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:28:48,195 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:28:58,441 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:29:08,630 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:29:18,885 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:29:29,161 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:29:39,392 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:29:49,664 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:29:59,876 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:30:10,100 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:30:20,312 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:30:30,499 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:30:40,726 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:30:50,909 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:31:06,193 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:31:17,582 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:31:27,725 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:31:37,832 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:31:47,970 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:31:58,100 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:32:08,228 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:32:18,334 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:32:28,469 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:32:38,604 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:32:48,723 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:32:59,203 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:33:09,341 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 17:33:19,470 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 18:06:58,323 [DEBUG] redis.asyncio.connection - Failed to enable maintenance notifications: unknown subcommand 'MAINT_NOTIFICATIONS'. Try CLIENT HELP.
+2026-10-28 18:07:10,845 [INFO] src.helpdesk.cached_repository - Cache warmed up. Requests in RAM: 4461
+Total Redis capacity: 19668B | 0.19MB
+2026-10-28 18:07:21,091 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 18:07:31,322 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 18:07:41,578 [INFO] src.helpdesk.service - Found 1 new events in helpdesk
+2026-10-28 18:07:41,667 [INFO] src.helpdesk.service - Request #34684: self-assigned by Даниил Федотов. Notification skipped.
+2026-10-28 18:07:51,917 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 18:08:02,147 [INFO] src.helpdesk.service - Found 1 new events in helpdesk
+2026-10-28 18:08:12,464 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 18:08:22,679 [DEBUG] src.helpdesk.service - No changes found

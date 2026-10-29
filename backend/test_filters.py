@@ -43,3 +43,4 @@ async def test_v3_history():
                 print("❌ Отказ:", resp.text[:300])
 
 asyncio.run(test_v3_history())
+

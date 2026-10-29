@@ -1,10 +1,22 @@
-import msgspec
+import uuid
 from datetime import time
+import msgspec
 
 
 class UserCreateSchema(msgspec.Struct):
     telegram_id: int
     hd_api: str
+
+
+class SettingsPresetCreateSchema(msgspec.Struct):
+    name: str
+    time_from: time | None = None
+    time_to: time | None = None
+    days_of_week: list[int] = msgspec.field(default_factory=lambda: [0, 1, 2, 3, 4, 5, 6])
+    unassigned_requests: bool = True
+    assigned_to_me: bool = True
+    alerts: bool = True
+    activate_immediately: bool = True
 
 
 class SettingsPresetUpdateSchema(msgspec.Struct):
@@ -18,8 +30,9 @@ class SettingsPresetUpdateSchema(msgspec.Struct):
 
 
 class UserSettingsOutputSchema(msgspec.Struct):
+    id: uuid.UUID
     name: str
-    is_active: bool 
+    is_active: bool
     time_from: str | None = None
     time_to: str | None = None
     days_of_week: list[int] = msgspec.field(default_factory=lambda: [0, 1, 2, 3, 4, 5, 6])
@@ -29,6 +42,7 @@ class UserSettingsOutputSchema(msgspec.Struct):
 
 
 class UserOutputSchema(msgspec.Struct):
+    id: uuid.UUID
     telegram_id: int
     hd_api: str
     hd_technician_name: str

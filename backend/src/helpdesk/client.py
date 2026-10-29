@@ -11,6 +11,7 @@ class HelpDeskClient:
     def __init__(self) -> None:
         settings = get_hd_settings()
         self._endpoint = settings.endpoint
+        self._base_url = settings.base_url.rstrip("/")
         self._admin_api_key = settings.admin_api_key
         self._decoder = msgspec.json.Decoder(type=SdpResponseSchema)
         self._encoder = msgspec.json.Encoder()
@@ -158,6 +159,42 @@ class HelpDeskClient:
             return []
 
         return raw_details if isinstance(raw_details, list) else [raw_details]
+
+
+    async def get_last_assignee_editor(self, request_id: int) -> str | None:
+        url = f"{self._base_url}/api/v3/requests/{request_id}/history"
+        input_data = {"list_info": {"sort_order": "A"}}
+
+        params = {
+            "TECHNICIAN_KEY": self._admin_api_key,
+            "INPUT_DATA": self._encoder.encode(input_data).decode("utf-8"),
+        }
+        headers = {
+            "Accept": "application/vnd.manageengine.sdp.v3+json",
+        }
+
+        response = await self.client.get(url=url, headers=headers, params=params)
+        response.raise_for_status()
+
+        raw_data = msgspec.json.decode(response.content)
+        history = raw_data.get("history")
+        if not history or not isinstance(history, list):
+            return None
+
+        for entry in reversed(history):
+            by_info = entry.get("by") or {}
+            editor_name = by_info.get("name")
+            
+            diffs = entry.get("diff")
+            if isinstance(diffs, list):
+                for diff_item in diffs:
+                    if diff_item.get("field") == "Technician":
+                        return editor_name
+
+            if entry.get("operation") == "CREATE":
+                return editor_name
+
+        return None
 
     async def close(self) -> None:
         await self.client.aclose()

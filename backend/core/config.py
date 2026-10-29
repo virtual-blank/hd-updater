@@ -2,6 +2,8 @@ from functools import lru_cache
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 import logging
+from datetime import timezone, timedelta
+import re
 
 log = logging.getLogger(__name__)
 
@@ -15,13 +17,23 @@ class HDSettings(BaseSettings):
     api_key: str
     base_url: str
     admin_api_key: str
+    active_hours_polling_period_seconds: int = 60
+    inactive_hours_polling_period_seconds: int = 180
+    active_hours_start: str = "7:00"
+    active_hours_end: str = "22:00"
+    timezone: str = "UTC+3"
 
     @property
     def endpoint(self) -> str:
         if not self.base_url.startswith("https://"):
-            log.error("Incorrect helpdesk URL")
-            raise ValueError("Incorrect helpdesk URL")
+            raise ValueError("Неверный helpdesk URL")
         return f"{self.base_url.rstrip('/')}/sdpapi/request"
+
+    @property
+    def tzinfo(self) -> timezone:
+        match = re.match(r"^UTC([+-]\d+)$", self.timezone.strip(), re.IGNORECASE)
+        offset_hours = int(match.group(1)) if match else 3
+        return timezone(timedelta(hours=offset_hours))
 
 
 class TelegramSettings(BaseSettings):

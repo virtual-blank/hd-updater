@@ -43,3 +43,19 @@ class CachedHelpdeskRepository:
             known[req.id] = req.technician
         payload = self.encoder.encode(known)
         await self.redis.set(self.cache_key, payload, ex=86400 * 7)
+
+
+    async def save_unassigned_message(self, request_id: int, chat_id: int, message_id: int) -> None:
+        key = f"hd:unassigned_msgs:{request_id}"
+        await self.redis.rpush(key, f"{chat_id}:{message_id}".encode("utf-8"))
+        await self.redis.expire(key, 86400 * 7)
+
+    async def pop_unassigned_messages(self, request_id: int) -> list[tuple[int, int]]:
+        key = f"hd:unassigned_msgs:{request_id}"
+        raw_items = await self.redis.lrange(key, 0, -1)
+        await self.redis.delete(key)
+        result = []
+        for item in raw_items:
+            chat_str, msg_str = item.decode("utf-8").split(":")
+            result.append((int(chat_str), int(msg_str)))
+        return result

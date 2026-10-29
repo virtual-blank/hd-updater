@@ -24,6 +24,18 @@ class SdpResponseSchema(msgspec.Struct):
     operation: OperationDetailsSchema
 
 
+# class RequestFullSchema(msgspec.Struct):
+#     id: int = msgspec.field(name="WORKORDERID")
+#     subject: str = msgspec.field(name="SUBJECT", default="-")
+#     status: str = msgspec.field(name="STATUS", default="Не распределено")
+#     technician: str = msgspec.field(name="TECHNICIAN", default="Не назначено")
+#     description: str = msgspec.field(name="SHORTDESCRIPTION", default="-")
+#     requester: str = msgspec.field(name="REQUESTER", default="-")
+
+
+
+
+
 class RequestFullSchema(msgspec.Struct):
     id: int = msgspec.field(name="WORKORDERID")
     subject: str = msgspec.field(name="SUBJECT", default="-")
@@ -31,11 +43,9 @@ class RequestFullSchema(msgspec.Struct):
     technician: str = msgspec.field(name="TECHNICIAN", default="Не назначено")
     description: str = msgspec.field(name="SHORTDESCRIPTION", default="-")
     requester: str = msgspec.field(name="REQUESTER", default="-")
-
+    site: str = msgspec.field(name="SITE", default="-")
 
 class NotificationEventSchema(msgspec.Struct):
     telegram_id: int
     event_type: str  # "NEW_UNASSIGNED" or "ASSIGNED"
     request: RequestFullSchema
-
-

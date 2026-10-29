@@ -1,3 +1,4 @@
+import uuid
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
@@ -5,17 +6,16 @@ from sqlalchemy.exc import IntegrityError
 
 from src.users.models import User, SettingsPreset
 from src.users.exceptions import TelegramAlreadyUsed, HdApiAlreadyUsed
-from src.users.schemas import SettingsPresetUpdateSchema
 
 
 class UserRepository:
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    async def _commit(self):
+    async def _commit(self) -> None:
         await self.session.commit()
 
-    async def _rollback(self):
+    async def _rollback(self) -> None:
         await self.session.rollback()
 
     async def get_user_by_telegram_id(self, telegram_id: int) -> User | None:
@@ -25,7 +25,11 @@ class UserRepository:
             .where(User.telegram_id == telegram_id)
         )
         result = await self.session.execute(stmt)
-        return result.scalar_one_or_none()
+        user = result.scalar_one_or_none()
+        if user:
+            # Фиксируем порядок пресетов по времени создания, чтобы кнопки в боте не скакали
+            user.settings_presets.sort(key=lambda p: p.created_at)
+        return user
 
     async def get_user_by_hd_api(self, hd_api: str) -> User | None:
         stmt = select(User).where(User.hd_api == hd_api)
@@ -36,7 +40,7 @@ class UserRepository:
         self,
         hd_api: str,
         telegram_id: int,
-        hd_technician_name: str 
+        hd_technician_name: str,
     ) -> User:
         new_user = User(
             telegram_id=telegram_id,
@@ -44,13 +48,13 @@ class UserRepository:
             hd_technician_name=hd_technician_name,
             settings_presets=[
                 SettingsPreset(name="Стандартный", is_active=True)
-            ]
+            ],
         )
         try:
             self.session.add(new_user)
-            await self.session.flush() 
+            await self.session.flush()
         except IntegrityError as exc:
-            await self._rollback()     
+            await self._rollback()
             err_msg = str(exc.orig)
             if "telegram_id" in err_msg:
                 raise TelegramAlreadyUsed from exc
@@ -59,9 +63,18 @@ class UserRepository:
             raise
         except Exception:
             await self._rollback()
-            raise                      
+            raise
 
         return new_user
+
+    async def add_preset(self, preset: SettingsPreset) -> SettingsPreset:
+        self.session.add(preset)
+        await self.session.flush()
+        return preset
+
+    async def delete_preset(self, preset: SettingsPreset) -> None:
+        await self.session.delete(preset)
+        await self.session.flush()
 
     async def get_active_users_with_settings(self) -> list[User]:
         stmt = (

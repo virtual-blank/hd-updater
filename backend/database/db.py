@@ -7,7 +7,7 @@ from sqlalchemy.orm import DeclarativeBase
 
 engine = create_async_engine(
     get_postgres_settings().url,
-    echo=True,
+    echo=False,
     pool_size=5,
     max_overflow=10,
     pool_timeout=30,

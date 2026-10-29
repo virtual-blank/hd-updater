@@ -80,3 +80,234 @@ Total Redis capacity: 19668B | 0.19MB
 2026-10-28 18:08:02,147 [INFO] src.helpdesk.service - Found 1 new events in helpdesk
 2026-10-28 18:08:12,464 [DEBUG] src.helpdesk.service - No changes found
 2026-10-28 18:08:22,679 [DEBUG] src.helpdesk.service - No changes found
+2026-10-28 19:05:30,546 [INFO] __main__ - Прогрев кэша пользователей из БД...
+2026-10-28 19:05:30,589 [INFO] sqlalchemy.engine.Engine - select pg_catalog.version()
+2026-10-28 19:05:30,589 [INFO] sqlalchemy.engine.Engine - [raw sql] ()
+2026-10-28 19:05:30,624 [INFO] sqlalchemy.engine.Engine - select current_schema()
+2026-10-28 19:05:30,624 [INFO] sqlalchemy.engine.Engine - [raw sql] ()
+2026-10-28 19:05:30,632 [INFO] sqlalchemy.engine.Engine - show standard_conforming_strings
+2026-10-28 19:05:30,632 [INFO] sqlalchemy.engine.Engine - [raw sql] ()
+2026-10-28 19:05:30,635 [INFO] sqlalchemy.engine.Engine - BEGIN (implicit)
+2026-10-28 19:05:30,637 [INFO] sqlalchemy.engine.Engine - SELECT users.telegram_id, users.hd_api, users.hd_technician_name, users.id, users.created_at, users.updated_at 
+FROM users 
+WHERE users.hd_api IS NOT NULL
+2026-10-28 19:05:30,637 [INFO] sqlalchemy.engine.Engine - [generated in 0.00028s] ()
+2026-10-28 19:05:30,647 [INFO] sqlalchemy.engine.Engine - ROLLBACK
+2026-10-29 16:15:15,485 [INFO] __main__ - Прогрев кэша пользователей из БД...
+2026-10-29 16:15:15,512 [INFO] sqlalchemy.engine.Engine - select pg_catalog.version()
+2026-10-29 16:15:15,512 [INFO] sqlalchemy.engine.Engine - [raw sql] ()
+2026-10-29 16:15:15,520 [INFO] sqlalchemy.engine.Engine - select current_schema()
+2026-10-29 16:15:15,521 [INFO] sqlalchemy.engine.Engine - [raw sql] ()
+2026-10-29 16:15:15,530 [INFO] sqlalchemy.engine.Engine - show standard_conforming_strings
+2026-10-29 16:15:15,531 [INFO] sqlalchemy.engine.Engine - [raw sql] ()
+2026-10-29 16:15:15,534 [INFO] sqlalchemy.engine.Engine - BEGIN (implicit)
+2026-10-29 16:15:15,546 [INFO] sqlalchemy.engine.Engine - SELECT users.telegram_id, users.hd_api, users.hd_technician_name, users.id, users.created_at, users.updated_at 
+FROM users 
+WHERE users.hd_api IS NOT NULL
+2026-10-29 16:15:15,547 [INFO] sqlalchemy.engine.Engine - [generated in 0.00070s] ()
+2026-10-29 16:15:15,584 [INFO] sqlalchemy.engine.Engine - ROLLBACK
+2026-10-29 16:16:51,630 [INFO] __main__ - Прогрев кэша пользователей из БД...
+2026-10-29 16:16:51,651 [INFO] sqlalchemy.engine.Engine - select pg_catalog.version()
+2026-10-29 16:16:51,652 [INFO] sqlalchemy.engine.Engine - [raw sql] ()
+2026-10-29 16:16:51,658 [INFO] sqlalchemy.engine.Engine - select current_schema()
+2026-10-29 16:16:51,659 [INFO] sqlalchemy.engine.Engine - [raw sql] ()
+2026-10-29 16:16:51,669 [INFO] sqlalchemy.engine.Engine - show standard_conforming_strings
+2026-10-29 16:16:51,670 [INFO] sqlalchemy.engine.Engine - [raw sql] ()
+2026-10-29 16:16:51,673 [INFO] sqlalchemy.engine.Engine - BEGIN (implicit)
+2026-10-29 16:16:51,676 [INFO] sqlalchemy.engine.Engine - SELECT users.telegram_id, users.hd_api, users.hd_technician_name, users.id, users.created_at, users.updated_at 
+FROM users 
+WHERE users.hd_api IS NOT NULL
+2026-10-29 16:16:51,676 [INFO] sqlalchemy.engine.Engine - [generated in 0.00036s] ()
+2026-10-29 16:16:51,680 [INFO] sqlalchemy.engine.Engine - ROLLBACK
+2026-10-29 16:17:08,467 [INFO] __main__ - Прогрев кэша пользователей из БД...
+2026-10-29 16:17:08,500 [INFO] sqlalchemy.engine.Engine - select pg_catalog.version()
+2026-10-29 16:17:08,500 [INFO] sqlalchemy.engine.Engine - [raw sql] ()
+2026-10-29 16:17:08,507 [INFO] sqlalchemy.engine.Engine - select current_schema()
+2026-10-29 16:17:08,507 [INFO] sqlalchemy.engine.Engine - [raw sql] ()
+2026-10-29 16:17:08,511 [INFO] sqlalchemy.engine.Engine - show standard_conforming_strings
+2026-10-29 16:17:08,512 [INFO] sqlalchemy.engine.Engine - [raw sql] ()
+2026-10-29 16:17:08,515 [INFO] sqlalchemy.engine.Engine - BEGIN (implicit)
+2026-10-29 16:17:08,520 [INFO] sqlalchemy.engine.Engine - SELECT users.telegram_id, users.hd_api, users.hd_technician_name, users.id, users.created_at, users.updated_at 
+FROM users 
+WHERE users.hd_api IS NOT NULL
+2026-10-29 16:17:08,520 [INFO] sqlalchemy.engine.Engine - [generated in 0.00036s] ()
+2026-10-29 16:17:08,542 [DEBUG] redis.asyncio.connection - Failed to enable maintenance notifications: unknown subcommand 'MAINT_NOTIFICATIONS'. Try CLIENT HELP.
+2026-10-29 16:17:08,544 [INFO] src.users.service - Users cache updated: loaded 0 profiles
+2026-10-29 16:17:08,545 [INFO] sqlalchemy.engine.Engine - ROLLBACK
+2026-10-29 16:17:08,546 [INFO] __main__ - Прогрев кэша заявок из HelpDesk...
+2026-10-29 16:17:26,378 [INFO] src.helpdesk.cached_repository - Cache warmed up. Requests in RAM: 4463
+Total Redis capacity: 19668B | 0.19MB
+2026-10-29 16:17:26,388 [INFO] src.scheduler.scheduler - Планировщик HelpDesk запущен (интервал=60 сек)
+2026-10-29 16:17:26,388 [INFO] __main__ - Запуск Telegram-бота...
+2026-10-29 16:17:26,390 [INFO] aiogram.dispatcher - Start polling
+2026-10-29 16:17:31,394 [INFO] aiogram.dispatcher - Run polling for bot @hd_updater_bot id=8830759100 - 'Хелпдеск [уведы]'
+2026-10-29 16:17:33,804 [INFO] sqlalchemy.engine.Engine - BEGIN (implicit)
+2026-10-29 16:17:33,806 [INFO] sqlalchemy.engine.Engine - SELECT users.telegram_id, users.hd_api, users.hd_technician_name, users.id, users.created_at, users.updated_at 
+FROM users 
+WHERE users.telegram_id = $1::BIGINT
+2026-10-29 16:17:33,806 [INFO] sqlalchemy.engine.Engine - [generated in 0.00047s] (6832003943,)
+2026-10-29 16:17:34,587 [INFO] sqlalchemy.engine.Engine - ROLLBACK
+2026-10-29 16:17:34,602 [INFO] aiogram.event - Update id=878651472 is handled. Duration 826 ms by bot id=8830759100
+2026-10-29 16:17:54,623 [INFO] sqlalchemy.engine.Engine - BEGIN (implicit)
+2026-10-29 16:17:54,634 [INFO] sqlalchemy.engine.Engine - INSERT INTO users (telegram_id, hd_api, hd_technician_name, id) VALUES ($1::BIGINT, $2::VARCHAR, $3::VARCHAR, $4::UUID) RETURNING users.created_at, users.updated_at
+2026-10-29 16:17:54,634 [INFO] sqlalchemy.engine.Engine - [generated in 0.00082s] (6832003943, '6CCD91E0-1792-456A-B77E-808824317D08', 'Даниил Федотов', UUID('01a187cf-564a-7f9e-bb04-42f17dee193f'))
+2026-10-29 16:17:54,651 [INFO] sqlalchemy.engine.Engine - INSERT INTO settings_presets (user_id, name, is_active, time_from, time_to, days_of_week, unassigned_requests, assigned_to_me, alerts, id) VALUES ($1::UUID, $2::VARCHAR, $3::BOOLEAN, $4::TIME WITHOUT TIME ZONE, $5::TIME WITHOUT TIME ZONE, $6::INTEGER[], $7::BOOLEAN, $8::BOOLEAN, $9::BOOLEAN, $10::UUID) RETURNING settings_presets.created_at, settings_presets.updated_at
+2026-10-29 16:17:54,651 [INFO] sqlalchemy.engine.Engine - [generated in 0.00082s] (UUID('01a187cf-564a-7f9e-bb04-42f17dee193f'), 'Стандартный', True, None, None, [0, 1, 2, 3, 4, 5, 6], True, True, True, UUID('01a187cf-565b-77aa-a2e5-7d67b4086730'))
+2026-10-29 16:17:54,839 [INFO] sqlalchemy.engine.Engine - COMMIT
+2026-10-29 16:17:54,857 [INFO] sqlalchemy.engine.Engine - BEGIN (implicit)
+2026-10-29 16:17:54,857 [INFO] sqlalchemy.engine.Engine - SELECT users.telegram_id, users.hd_api, users.hd_technician_name, users.id, users.created_at, users.updated_at 
+FROM users 
+WHERE users.hd_api IS NOT NULL
+2026-10-29 16:17:54,858 [INFO] sqlalchemy.engine.Engine - [cached since 46.34s ago] ()
+2026-10-29 16:17:54,882 [INFO] sqlalchemy.engine.Engine - SELECT settings_presets.user_id, settings_presets.name, settings_presets.is_active, settings_presets.time_from, settings_presets.time_to, settings_presets.days_of_week, settings_presets.unassigned_requests, settings_presets.assigned_to_me, settings_presets.alerts, settings_presets.id, settings_presets.created_at, settings_presets.updated_at 
+FROM settings_presets 
+WHERE settings_presets.user_id IN ($1::UUID)
+2026-10-29 16:17:54,883 [INFO] sqlalchemy.engine.Engine - [generated in 0.00096s] (UUID('01a187cf-564a-7f9e-bb04-42f17dee193f'),)
+2026-10-29 16:17:54,915 [INFO] src.users.service - Users cache updated: loaded 1 profiles
+2026-10-29 16:17:54,916 [INFO] sqlalchemy.engine.Engine - ROLLBACK
+2026-10-29 16:17:55,162 [INFO] aiogram.event - Update id=878651473 is handled. Duration 1115 ms by bot id=8830759100
+2026-10-29 16:18:26,691 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:19:26,603 [INFO] src.helpdesk.service - Found 1 new events in helpdesk
+2026-10-29 16:20:26,609 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:21:26,610 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:22:26,632 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:23:26,650 [INFO] src.helpdesk.service - Found 1 new events in helpdesk
+2026-10-29 16:24:26,644 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:25:26,620 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:26:26,580 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:27:26,586 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:28:26,590 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:29:26,605 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:30:26,680 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:31:26,693 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:32:26,510 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:33:26,505 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:34:26,590 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:35:26,561 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:36:26,662 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:37:26,519 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:38:26,514 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:39:26,500 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:40:26,512 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:41:26,518 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:42:26,500 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:43:26,673 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:44:26,832 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:45:26,685 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:46:26,644 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:47:26,790 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:48:26,747 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:49:28,793 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:50:27,133 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:51:26,782 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:52:26,642 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:53:26,611 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:54:26,624 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:55:28,101 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:56:26,520 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:57:26,658 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:58:26,501 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 16:59:26,532 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:00:26,539 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:01:26,519 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:02:26,502 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:03:26,503 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:04:26,515 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:05:26,492 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:06:26,521 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:07:26,485 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:08:26,545 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:09:26,497 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:10:26,780 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:11:26,497 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:12:26,534 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:13:26,540 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:14:26,534 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:15:25,851 [INFO] sqlalchemy.engine.Engine - BEGIN (implicit)
+2026-10-29 17:15:25,861 [INFO] sqlalchemy.engine.Engine - SELECT users.telegram_id, users.hd_api, users.hd_technician_name, users.id, users.created_at, users.updated_at 
+FROM users 
+WHERE users.telegram_id = $1::BIGINT
+2026-10-29 17:15:25,862 [INFO] sqlalchemy.engine.Engine - [cached since 3472s ago] (6832003943,)
+2026-10-29 17:15:25,903 [INFO] sqlalchemy.engine.Engine - SELECT settings_presets.user_id, settings_presets.name, settings_presets.is_active, settings_presets.time_from, settings_presets.time_to, settings_presets.days_of_week, settings_presets.unassigned_requests, settings_presets.assigned_to_me, settings_presets.alerts, settings_presets.id, settings_presets.created_at, settings_presets.updated_at 
+FROM settings_presets 
+WHERE settings_presets.user_id IN ($1::UUID)
+2026-10-29 17:15:25,903 [INFO] sqlalchemy.engine.Engine - [cached since 3451s ago] (UUID('01a187cf-564a-7f9e-bb04-42f17dee193f'),)
+2026-10-29 17:15:26,166 [INFO] sqlalchemy.engine.Engine - ROLLBACK
+2026-10-29 17:15:26,168 [INFO] aiogram.event - Update id=878651474 is handled. Duration 502 ms by bot id=8830759100
+2026-10-29 17:15:26,508 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:16:26,508 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:17:26,516 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:18:26,586 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:19:26,515 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:20:26,505 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:21:26,516 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:22:26,510 [INFO] src.helpdesk.service - Found 1 new events in helpdesk
+2026-10-29 17:22:46,274 [INFO] aiogram.event - Update id=878651475 is handled. Duration 247 ms by bot id=8830759100
+2026-10-29 17:22:51,702 [INFO] aiogram.event - Update id=878651476 is handled. Duration 218 ms by bot id=8830759100
+2026-10-29 17:23:27,720 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:24:26,528 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:25:26,662 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:26:26,844 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:27:26,547 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:28:26,533 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:29:26,750 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:30:26,915 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:31:26,537 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:32:26,597 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:33:26,545 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:34:26,567 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:35:26,566 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:36:09,906 [WARNING] aiogram.dispatcher - Received SIGINT signal
+2026-10-29 17:36:09,929 [INFO] aiogram.dispatcher - Polling stopped for bot @hd_updater_bot id=8830759100 - 'Хелпдеск [уведы]'
+2026-10-29 17:36:09,951 [INFO] aiogram.dispatcher - Polling stopped
+2026-10-29 17:37:30,725 [INFO] __main__ - Прогрев кэша пользователей из БД...
+2026-10-29 17:37:31,337 [DEBUG] redis.asyncio.connection - Failed to enable maintenance notifications: unknown subcommand 'MAINT_NOTIFICATIONS'. Try CLIENT HELP.
+2026-10-29 17:37:31,357 [INFO] src.users.service - Users cache updated: loaded 1 profiles
+2026-10-29 17:37:31,364 [INFO] __main__ - Прогрев кэша заявок из HelpDesk...
+2026-10-29 17:37:46,877 [INFO] src.helpdesk.cached_repository - Cache warmed up. Requests in RAM: 4463
+Total Redis capacity: 19668B | 0.19MB
+2026-10-29 17:37:46,977 [INFO] src.scheduler.scheduler - Планировщик HelpDesk запущен (интервал=60 сек)
+2026-10-29 17:37:46,978 [INFO] __main__ - Запуск Telegram-бота...
+2026-10-29 17:37:46,998 [INFO] aiogram.dispatcher - Start polling
+2026-10-29 17:37:47,887 [INFO] aiogram.dispatcher - Run polling for bot @hd_updater_bot id=8830759100 - 'Хелпдеск [уведы]'
+2026-10-29 17:38:06,149 [WARNING] aiogram.dispatcher - Received SIGINT signal
+2026-10-29 17:38:06,157 [INFO] aiogram.dispatcher - Polling stopped for bot @hd_updater_bot id=8830759100 - 'Хелпдеск [уведы]'
+2026-10-29 17:38:06,157 [INFO] aiogram.dispatcher - Polling stopped
+2026-10-29 17:42:44,188 [INFO] __main__ - Прогрев кэша пользователей из БД...
+2026-10-29 17:42:44,569 [DEBUG] redis.asyncio.connection - Failed to enable maintenance notifications: unknown subcommand 'MAINT_NOTIFICATIONS'. Try CLIENT HELP.
+2026-10-29 17:42:44,576 [INFO] src.users.service - Users cache updated: loaded 1 profiles
+2026-10-29 17:42:44,578 [INFO] __main__ - Прогрев кэша заявок из HelpDesk...
+2026-10-29 17:42:57,963 [INFO] src.helpdesk.cached_repository - Cache warmed up. Requests in RAM: 4463
+Total Redis capacity: 19668B | 0.19MB
+2026-10-29 17:42:57,974 [INFO] src.scheduler.scheduler - Планировщик HelpDesk запущен (интервал=60 сек)
+2026-10-29 17:42:57,976 [INFO] __main__ - Запуск Telegram-бота...
+2026-10-29 17:42:58,030 [INFO] aiogram.dispatcher - Start polling
+2026-10-29 17:42:58,818 [INFO] aiogram.dispatcher - Run polling for bot @hd_updater_bot id=8830759100 - 'Хелпдеск [уведы]'
+2026-10-29 17:42:59,709 [INFO] aiogram.event - Update id=878651477 is handled. Duration 701 ms by bot id=8830759100
+2026-10-29 17:43:04,267 [INFO] aiogram.event - Update id=878651478 is handled. Duration 265 ms by bot id=8830759100
+2026-10-29 17:43:23,421 [INFO] aiogram.event - Update id=878651479 is handled. Duration 500 ms by bot id=8830759100
+2026-10-29 17:43:33,817 [INFO] aiogram.event - Update id=878651480 is not handled. Duration 4 ms by bot id=8830759100
+2026-10-29 17:43:38,833 [INFO] aiogram.event - Update id=878651481 is handled. Duration 414 ms by bot id=8830759100
+2026-10-29 17:43:58,156 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:44:58,126 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:45:58,126 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:46:58,077 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:47:58,113 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:48:58,090 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:49:58,238 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:50:58,442 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:51:58,227 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:52:58,102 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:53:58,096 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:54:58,141 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:55:24,992 [INFO] aiogram.event - Update id=878651482 is handled. Duration 189 ms by bot id=8830759100
+2026-10-29 17:55:27,416 [INFO] aiogram.event - Update id=878651483 is handled. Duration 273 ms by bot id=8830759100
+2026-10-29 17:55:58,126 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:56:58,135 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:57:58,349 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:58:58,409 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 17:59:58,244 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 18:00:58,523 [DEBUG] src.helpdesk.service - No changes found
+2026-10-29 18:01:10,210 [WARNING] aiogram.dispatcher - Received SIGINT signal
+2026-10-29 18:01:10,303 [INFO] aiogram.dispatcher - Polling stopped for bot @hd_updater_bot id=8830759100 - 'Хелпдеск [уведы]'
+2026-10-29 18:01:10,304 [INFO] aiogram.dispatcher - Polling stopped

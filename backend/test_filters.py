@@ -5,25 +5,24 @@ from core.config import get_hd_settings
 
 async def test_v3_history():
     settings = get_hd_settings()
-    # Берем тот же ключ, который успешно работает в клиенте
     api_key = settings.admin_api_key 
     url = f"{settings.base_url.rstrip('/')}/api/v3/requests/34754/history"
     input_data = json.dumps({"list_info": {"sort_order": "A"}})
 
     variants = [
-        # Вариант 1: Ключ в query-параметре TECHNICIAN_KEY (часто нужно в гибридных V1/V3 билдах)
+        #  TECHNICIAN_KEY, гибридные V1/V3 билды
         {
             "name": "Query param TECHNICIAN_KEY",
             "headers": {"Accept": "application/vnd.manageengine.sdp.v3+json"},
             "params": {"TECHNICIAN_KEY": api_key, "INPUT_DATA": input_data},
         },
-        # Вариант 2: Заголовок authtoken (стандарт старых версий V3)
+        # хедер authtoken, стандарт старых V3
         {
             "name": "Header authtoken",
             "headers": {"authtoken": api_key, "Accept": "application/vnd.manageengine.sdp.v3+json"},
             "params": {"INPUT_DATA": input_data},
         },
-        # Вариант 3: Заголовок TECHNICIAN_KEY + query format=json
+        # хедер TECHNICIAN_KEY + query format=json
         {
             "name": "Header + Query combined",
             "headers": {"TECHNICIAN_KEY": api_key, "authtoken": api_key, "X-Requested-With": "XMLHttpRequest"},
@@ -31,9 +30,9 @@ async def test_v3_history():
         },
     ]
 
-    async with AsyncClient(verify=False) as client:
+    async with AsyncClient(verify=False, http2=True) as client:
         for v in variants:
-            print(f"\n=== Пробуем: {v['name']} ===")
+            print(f"\n=== трай: {v['name']} ===")
             resp = await client.get(url, headers=v["headers"], params=v["params"])
             data = resp.json()
             if "history" in data:
